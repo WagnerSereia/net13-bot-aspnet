@@ -8,7 +8,10 @@ namespace SimpleBot
 
         public static string Reply(Message message)
         {
-            UserRepositoryMongo user = new UserRepositoryMongo();
+            //UserRepositoryMongo user = new UserRepositoryMongo();
+            //UserRepositoryEntity user = new UserRepositoryEntity(context);
+            //UserRepositorySQL user = new UserRepositorySQL();
+            UserRepositoryDapper user = new UserRepositoryDapper(context);
 
             var id = message.Id;
             var profile = user.GetProfile(id);
