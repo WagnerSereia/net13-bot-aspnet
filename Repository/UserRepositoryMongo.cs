@@ -37,7 +37,7 @@ namespace SimpleBot.Repository
             var col = db.GetCollection<UserProfile>("UserProfile");
 
             profile.Visitas += 1;
-            this.update(profile);
+            this.Update(profile);
         }
 
         public void RemoveUserProfile(UserProfile profile)
@@ -54,14 +54,14 @@ namespace SimpleBot.Repository
             }
         }
         
-        public void update(UserProfile profile)
+        public void Update(UserProfile profile)
         {
             var col = db.GetCollection<UserProfile>("UserProfile");
 
             col.ReplaceOne(p => p.IdUser == profile.IdUser, profile);
         }
 
-        public void insert(UserProfile profile)
+        public void Insert(UserProfile profile)
         {
             var col = db.GetCollection<UserProfile>("UserProfile");
 

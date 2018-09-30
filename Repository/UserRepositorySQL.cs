@@ -10,9 +10,9 @@ namespace SimpleBot.Repository
     {
         private readonly SqlConnection client;
 
-        public UserRepositorySQL()
+        public UserRepositorySQL(string connectionString)
         {
-            client = new SqlConnection(ConfigurationManager.AppSettings["ConnectionStringSQL"].ToString());            
+            client = new SqlConnection(connectionString);            
         }
         public UserProfile GetProfile(string id)
         {
@@ -32,11 +32,7 @@ namespace SimpleBot.Repository
                     userProfile.Visitas = (int)rs["Visitas"];
                 }
                 rs.Close();
-            }
-            catch(Exception erro)
-            {
-                string er = erro.Message;
-            }
+            }            
             finally
             {
                 client.Close();
@@ -48,10 +44,10 @@ namespace SimpleBot.Repository
         public void SetProfile(string id, ref UserProfile profile)
         {
             profile.Visitas += 1;
-            this.update(profile);            
+            this.Update(profile);            
         }
 
-        public void update(UserProfile profile)
+        public void Update(UserProfile profile)
         { 
             try
             {
@@ -69,7 +65,7 @@ namespace SimpleBot.Repository
             }            
         }
 
-        public void insert(UserProfile profile)
+        public void Insert(UserProfile profile)
         {
             try
             {
@@ -81,11 +77,7 @@ namespace SimpleBot.Repository
                 myCommand.Parameters.Add("@Visitas", SqlDbType.Int).Value = profile.Visitas;
 
                 myCommand.ExecuteNonQuery();
-            }
-            catch (Exception erro)
-            {
-                string er = erro.Message;
-            }
+            }            
             finally
             {
                 client.Close();
@@ -102,10 +94,6 @@ namespace SimpleBot.Repository
                 myCommand.Parameters.Add("@IdUser", SqlDbType.VarChar, 50).Value = profile.IdUser;
 
                 myCommand.ExecuteNonQuery();
-            }
-            catch (Exception erro)
-            {
-                string er = erro.Message;
             }
             finally
             {

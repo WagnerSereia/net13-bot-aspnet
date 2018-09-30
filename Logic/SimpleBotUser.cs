@@ -21,7 +21,7 @@ namespace SimpleBot
                 profile = new UserProfile();
                 profile.IdUser = id;
                 profile.Visitas = 0;
-                user.insert(profile);
+                user.Insert(profile);
             }
 
             user.SetProfile(id, ref profile);

@@ -24,66 +24,48 @@ namespace SimpleBot.Repository
         public UserProfile GetProfile(string id)
         {
             UserProfile user = null;
-            try
-            {
-                var cn = Db.Database.Connection;
-                string sql = "select * from UserProfile where idUser=@idUser";
-                user = cn.Query<UserProfile>(sql, new { idUser = id }).First();
-            }
-            catch (Exception erro)
-            {
-                Console.WriteLine(erro.Message);
-            }
+
+            var cn = Db.Database.Connection;
+            string sql = "select * from UserProfile where idUser=@idUser";
+            user = cn.Query<UserProfile>(sql, new { idUser = id }).First();
+
             return user;
         }
 
-        
+
         public void SetProfile(string id, ref UserProfile profile)
         {
             profile.Visitas += 1;
-            this.update(profile);             
+            this.Update(profile);
         }
-        public void update(UserProfile profile)
+        public void Update(UserProfile profile)
         {
-            try
-            {
-                var cn = Db.Database.Connection;
-                string sql = "UPDATE [UserProfile] SET Visitas=@Visitas where idUser=@IdUser";
-                cn.Query<UserProfile>(sql,
-                    new
-                    {
-                        Visitas = profile.Visitas,
-                        IdUser = profile.IdUser                        
-                    }
-                    );
-            }catch(Exception erro)
-            {
-                Console.WriteLine(erro.Message);
-            }
+            var cn = Db.Database.Connection;
+            string sql = "UPDATE [UserProfile] SET Visitas=@Visitas where idUser=@IdUser";
+            cn.Query<UserProfile>(sql,
+                new
+                {
+                    Visitas = profile.Visitas,
+                    IdUser = profile.IdUser
+                });
         }
 
-        public void insert(UserProfile profile)
+        public void Insert(UserProfile profile)
         {
-            try
+            var cn = Db.Database.Connection;
+            string sql = "insert into [UserProfile] (IdUser,Visitas)values(@IdUser,@Visitas)";
+            cn.Query<UserProfile>(sql, new
             {
-                var cn = Db.Database.Connection;
-                string sql = "insert into [UserProfile] (IdUser,Visitas)values(@IdUser,@Visitas)";
-                cn.Query<UserProfile>(sql,new {
-                    IdUser = profile.IdUser,
-                    Visitas = profile.Visitas
-                });
-            }
-            catch (Exception erro)
-            {
-                Console.WriteLine(erro.Message);
-            }
+                IdUser = profile.IdUser,
+                Visitas = profile.Visitas
+            });
         }
 
         public void RemoveUserProfile(UserProfile profile)
         {
             var cn = Db.Database.Connection;
             string sql = "Delete from [UserProfile] where idUser=@IdUser";
-            cn.Query<UserProfile>(sql,new { idUser = profile.IdUser });            
+            cn.Query<UserProfile>(sql, new { idUser = profile.IdUser });
         }
 
         public void Dispose()

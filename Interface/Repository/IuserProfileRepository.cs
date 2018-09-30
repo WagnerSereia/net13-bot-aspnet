@@ -9,8 +9,8 @@ namespace SimpleBot.Interfaces.Repository
 	{
         UserProfile GetProfile(string id);
         void SetProfile(string id, ref UserProfile profile);
-        void update(UserProfile profile);
-        void insert(UserProfile profile);
+        void Update(UserProfile profile);
+        void Insert(UserProfile profile);
         void RemoveUserProfile(UserProfile profile);
         void Dispose();
     }

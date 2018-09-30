@@ -36,9 +36,9 @@ namespace SimpleBot.Repository
         public void SetProfile(string id, ref UserProfile profile)
         {
             profile.Visitas += 1;
-            this.update(profile);                
+            this.Update(profile);                
         }
-        public void update(UserProfile profile)
+        public void Update(UserProfile profile)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace SimpleBot.Repository
                 string er = erro.Message;
             }
         }
-        public void insert(UserProfile profile)
+        public void Insert(UserProfile profile)
         {
             try
             {
